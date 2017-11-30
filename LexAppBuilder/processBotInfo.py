@@ -97,45 +97,45 @@ def setLocalDynamodb(endpointurl):
 
 
 def alexa_to_lex_translation(event):
-    if "session" in event:
-        print("Found Alexa Event")
-        print(".....Converting to Lex syntax.....")
+    print("Found Alexa Event")
+    print(".....Converting to Lex syntax.....")
 
-        # Get all the slots
-        myslots = []
-        for slot in event["request"]["intent"]["slots"]:
-            myslots.append(slot)
+    # Get all the slots
+    myslots = []
+    for slot in event["request"]["intent"]["slots"]:
+        myslots.append(slot)
 
-        # Build the JSON document
-        data = {}
-        data["currentIntent"] = {}
-        data["currentIntent"]["confirmationStatus"] = "None"
-        data["currentIntent"]["slots"] = {}
-        data["currentIntent"]["slotDetails"] = {}
-        for slot in myslots:
-            data["currentIntent"]["slots"][slot] = event["request"]["intent"]["slots"][slot]["value"]
-            data["currentIntent"]["slotDetails"][slot] = {}
-            data["currentIntent"]["slotDetails"][slot]["originalValue"] = event["request"]["intent"]["slots"][slot]["value"]
-            data["currentIntent"]["slotDetails"][slot]["resolutions"] = [{}]
-            data["currentIntent"]["slotDetails"][slot]["resolutions"][0]["value"] = event["request"]["intent"]["slots"][slot]["value"]
-        data["currentIntent"]["name"] = event["request"]["intent"]["name"]
-        data["userId"] = event["session"]["user"]["userId"]
-        data["bot"] = {}
-        data["bot"]["alias"] = "$LATEST"
-        data["bot"]["version"] = "$LATEST"
-        data["bot"]["name"] = "AHATrackingBot"
-        data["invocationSource"] = "DialogCodeHook"
-        data["sessionAttributes"] = event["session"]["attributes"]
+    # Build the JSON document
+    data = {}
+    data["currentIntent"] = {}
+    data["currentIntent"]["confirmationStatus"] = "None"
+    data["currentIntent"]["slots"] = {}
+    data["currentIntent"]["slotDetails"] = {}
+    for slot in myslots:
+        data["currentIntent"]["slots"][slot] = event["request"]["intent"]["slots"][slot]["value"]
+        data["currentIntent"]["slotDetails"][slot] = {}
+        data["currentIntent"]["slotDetails"][slot]["originalValue"] = event["request"]["intent"]["slots"][slot]["value"]
+        data["currentIntent"]["slotDetails"][slot]["resolutions"] = [{}]
+        data["currentIntent"]["slotDetails"][slot]["resolutions"][0]["value"] = event["request"]["intent"]["slots"][slot]["value"]
+    data["currentIntent"]["name"] = event["request"]["intent"]["name"]
+    data["userId"] = event["session"]["user"]["userId"]
+    data["bot"] = {}
+    data["bot"]["alias"] = "$LATEST"
+    data["bot"]["version"] = "$LATEST"
+    data["bot"]["name"] = "AHATrackingBot"
+    data["invocationSource"] = "DialogCodeHook"
+    data["sessionAttributes"] = event["session"]["attributes"]
 
-        # Overwriting the original event with a Lex formatted event.
-        event = data
-        print(json.dumps(data))
+    # Overwriting the original event with a Lex formatted event.
+    event = data
+    print("Alexa to Lex converted event is:  " + json.dumps(data))
     return event
 
 
 def lambda_handler(event, context):
     print(json.dumps(event))
-    alexa_to_lex_translation(event)
+    if "session" in event:
+        event = alexa_to_lex_translation(event)
     if (event["invocationSource"] == "FulfillmentCodeHook"):
         return log_update(event)
     elif (event["invocationSource"] == "DialogCodeHook"):
