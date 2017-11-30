@@ -129,6 +129,7 @@ def alexa_to_lex_translation(event):
 
         # Overwriting the original event with a Lex formatted event.
         event = data
+        print(json.dumps(data))
     return event
 
 
