@@ -97,7 +97,7 @@ def setLocalDynamodb(endpointurl):
 
 
 def alexa_to_lex_translation(event):
-    if event["session"]["application"]["applicationId"]:
+    if "session" in event:
         print("Found Alexa Event")
         print(".....Converting to Lex syntax.....")
 
