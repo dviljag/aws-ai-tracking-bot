@@ -325,18 +325,19 @@ def log_dialogCodeHook(event):
             complete = False
     if (complete):
         response = {
-            "version": "1.0",
+            'version': '1.0',
             'sessionAttributes': sessionAttributes,
             'dialogAction': {
                 'type': 'Delegate',
                 'slots': slots
-                },
-            "response": {
-                "outputSpeech": {
-                "type": "PlainText",
-                "text": "I am Alexa, hear me roar!",
-                "shouldEndSession": True
+            },
+            'response': {
+                'outputSpeech': {
+                    'type': 'PlainText',
+                    'text': 'I am Alexa, hear me roar!',
+                    'shouldEndSession': True
                 }
+            }
         }
         print("log_dialogCodeHook: " + str(response))
         return response
