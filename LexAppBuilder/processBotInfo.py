@@ -124,7 +124,7 @@ def alexa_to_lex_translation(event):
     data["bot"]["version"] = "$LATEST"
     data["bot"]["name"] = "AHATrackingBot"
     data["invocationSource"] = "DialogCodeHook"
-    data["sessionAttributes"] = event["session"]["attributes"]
+    data["sessionAttributes"] = {}
 
     # Overwriting the original event with a Lex formatted event.
     event = data
@@ -334,9 +334,9 @@ def log_dialogCodeHook(event):
             'response': {
                 'outputSpeech': {
                     'type': 'PlainText',
-                    'text': 'I am Alexa, hear me roar!',
-                    'shouldEndSession': True
-                }
+                    'text': 'I am Alexa, hear me roar!'
+                },
+                'shouldEndSession': True
             }
         }
         print("log_dialogCodeHook: " + str(response))
