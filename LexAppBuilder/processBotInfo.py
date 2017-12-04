@@ -325,7 +325,6 @@ def log_dialogCodeHook(event):
             complete = False
     if (complete):
         response = {
-            'version': '1.0',
             'sessionAttributes': sessionAttributes,
             'dialogAction': {
                 'type': 'Delegate',
@@ -333,6 +332,7 @@ def log_dialogCodeHook(event):
             }
         }
         if "session" in event:
+            response["version"] = '1.0'
             response["response"] = {
                 'outputSpeech': {
                     'type': 'PlainText',
