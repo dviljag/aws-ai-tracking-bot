@@ -107,6 +107,7 @@ def alexa_to_lex_translation(event):
 
     # Build the JSON document
     data = {}
+    data["alexa"] = True
     data["currentIntent"] = {}
     data["currentIntent"]["confirmationStatus"] = "None"
     data["currentIntent"]["slots"] = {}
@@ -331,7 +332,8 @@ def log_dialogCodeHook(event):
                 'slots': slots
             }
         }
-        if "session" in event:
+        if "alexa" in event:
+            print("Session in the event found, Add Alexa response elements")
             response["version"] = '1.0'
             response["response"] = {
                 'outputSpeech': {
