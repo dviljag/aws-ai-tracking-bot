@@ -334,7 +334,7 @@ def log_dialogCodeHook(event):
             "response": {
                 "outputSpeech": {
                 "type": "PlainText",
-                "text": "I am Alexa, hear me roar!"
+                "text": "I am Alexa, hear me roar!",
                 "shouldEndSession": True
                 }
         }
