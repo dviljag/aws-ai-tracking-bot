@@ -337,10 +337,8 @@ def log_dialogCodeHook(event):
             response["version"] = '1.0'
             response["response"] = {
                 'outputSpeech': {
-                    'type': 'PlainText',
-                    'text': 'I am Alexa, hear me roar!'
-                },
-                'shouldEndSession': True
+                    'type': 'Dialog.Delegate'
+                }
             }
         print("log_dialogCodeHook: " + str(response))
         return response
